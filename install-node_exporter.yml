@@ -1,0 +1,14 @@
+#安装node_exporter脚本
+---
+- hosts: all
+  user: root
+  gather_facts: false
+  tasks: 
+  - name: 安装node_exporter
+    unarchive: src=/Applications/desktop/softewore/node_exporter-1.2.2.linux-amd64.tar dest=/opt/ 
+  - name: 添加node_exporter服务
+    copy: src=/Applications/desktop/softewore/node_exporter.service dest=/usr/lib/systemd/system/
+  - name: 设置开机自动启动
+    shell: systemctl enable node_exporter.service 
+  - name: 启动服务
+    shell: systemctl start node_exporter.service 
